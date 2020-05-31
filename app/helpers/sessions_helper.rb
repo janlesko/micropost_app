@@ -11,11 +11,12 @@ module SessionsHelper
     cookies.permanent.encrypted[:user_id] = user.id
     cookies.permanent[:remember_token] = user.remember_token
   end
-  
+
   # Returns the user corresponding to the remember token cookie.
   def current_user
     if (user_id = session[:user_id])
-      @current_user ||= User.find_by(id: user_id)
+      user = User.find_by(id: user_id)
+      @current_user ||= user if session[:session_token] == user.session_token
     elsif (user_id = cookies.encrypted[:user_id])
       user = User.find_by(id: user_id)
       if user && user.authenticated?(:remember, cookies[:remember_token])
@@ -45,7 +46,7 @@ module SessionsHelper
   # Logs out the current user.
   def log_out
     forget(current_user)
-    session.delete(:user_id)
+    reset_session
     @current_user = nil
   end
   
