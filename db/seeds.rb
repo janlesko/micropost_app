@@ -1,5 +1,5 @@
-# Create a main sample user.
-User.create!(name:  "Example User",
+# Create admin user.
+User.create!(name:  "Matz",
              email: "example@railstutorial.org",
              password:              "foobar",
              password_confirmation: "foobar",
@@ -21,10 +21,19 @@ User.create!(name:  "Example User",
 end
 
 # Generate microposts for a subset of users.
-users = User.order(:created_at).take(6)
+users = User.order(:created_at).take(5)
 50.times do
-  content = Faker::Lorem.sentence(word_count: 5)
-  users.each { |user| user.microposts.create!(content: content) }
+  users.each_with_index do |user, index|
+    content = case index
+      when 0 then Faker::Quote.matz
+      when 1 then Faker::Quote.yoda
+      when 2 then Faker::Quote.most_interesting_man_in_the_world
+      when 3 then Faker::Quote.famous_last_words
+      when 4 then Faker::Quote.singular_siegler
+      else ''
+    end
+    user.microposts.create!(content: content[0...500])
+  end
 end
 
 # Create following relationships.
