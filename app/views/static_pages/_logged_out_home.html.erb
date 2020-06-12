@@ -6,5 +6,17 @@
   <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
 </div>
 
-<%= link_to image_tag("rails.jpg", alt: "Rails logo", width: "300"),
-                      "https://rubyonrails.org/" %>
+<div class="container logos">
+  <div class="row">
+    <%= link_to image_tag("rails.jpg", alt: "Rails logo", width: "220"),
+                          "https://rubyonrails.org/" %>
+    <%= link_to image_tag("psql.png", alt: "Postgresql logo", width: "150"),
+                          "https://www.postgresql.org/" %>
+    <%= link_to image_tag("mailgun.png", alt: "Mailgun logo", width: "200"),
+                          "https://www.mailgun.com/" %>
+    <%= link_to image_tag("heroku.png", alt: "Heroku logo", width: "130"),
+                          "https://www.heroku.com/" %>
+    <%= link_to image_tag("aws.png", alt: "AWS logo", width: "200"),
+                          "https://aws.amazon.com/" %>
+  </div>
+</div>
